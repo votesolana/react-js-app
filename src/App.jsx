@@ -3,6 +3,7 @@
 
 
 
+import VoteBar from './VoteBar.jsx';
 import PlaceVote from './PlaceVote.jsx';
 
 import React, { useMemo } from 'react';
@@ -48,7 +49,9 @@ const App = () => {
             <WalletProvider wallets={wallets} autoConnect>
                 <WalletModalProvider>
                     <WalletMultiButton />
+                    <VoteBar></VoteBar>
                     <PlaceVote></PlaceVote>
+
                 </WalletModalProvider>
             </WalletProvider>
         </ConnectionProvider>

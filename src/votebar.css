@@ -1,0 +1,50 @@
+.vote-bar-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .vote-bar-container {
+    display: flex;
+    align-items: center;
+    width: 80%;
+    max-width: 800px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #fff;
+  }
+  
+  .vote-bar-label {
+    width: 70px;
+    text-align: center;
+    padding: 5px;
+  }
+  
+  .vote-bar-progress {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    height: 50px;
+    background: #eee;
+    position: relative;
+  }
+  
+  .vote-bar-tremp {
+    background: red;
+    height: 100%;
+  }
+  
+  .vote-bar-boden {
+    background: blue;
+    height: 100%;
+  }
+  
+  .vote-bar-percentage {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #000;
+    font-weight: bold;
+  }
+  
