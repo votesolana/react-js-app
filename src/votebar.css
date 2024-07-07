@@ -23,14 +23,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 45%;
   text-align: center; /* Centers contents horizontally */
 }
 
 .vote-bar-container {
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 90%;
   border: 5px solid #ccc; /* Border style */
   border-radius: 8px; /* Rounded corners */
 }

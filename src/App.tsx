@@ -124,7 +124,7 @@ const App = () => {
                         <img src="/test/header.png" alt="Header" className="header-image" />
                         <div className="horizontal-layout">
 
-
+                        
                             <PresidentDisplay imageSrc={bodenImage} isSelected={candidate === 'boden'} totalVotes={boden} presidentTitle={"Jeo Boden"} podiumImageSrc={"/test/podium.png"} presidentLink={"https://www.boden4pres.com/"} />
                             <VoteBar timeLength={timeLength} candidate={candidate} trempAmount={tremp} bodenAmount={boden} />
                             <PresidentDisplay imageSrc={trempImage} isSelected={candidate === 'tremp'} totalVotes={tremp} presidentTitle={"Doland Tremp"} podiumImageSrc={"/test/podium2.png"} presidentLink={"https://www.tremp.xyz/"} />
