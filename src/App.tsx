@@ -97,19 +97,19 @@ const App = () => {
 
     const getImageForCandidate = (candidate, timeLength) => {
         if (candidate === 'tremp') {
-            if (timeLength === '1 day') return '../tremp1.png';
-            if (timeLength === '1 week') return '../tremp2.png';
-            if (timeLength === '1 month') return '../tremp3.png';
-            return '../tremp4.png';
+            if (timeLength === '1 day') return '/test/tremp1.png';
+            if (timeLength === '1 week') return '/test/tremp2.png';
+            if (timeLength === '1 month') return '/test/tremp3.png';
+            return '/test/tremp4.png';
         } else {
-            if (timeLength === '1 day') return '../biden1.png';
-            if (timeLength === '1 week') return '../biden2.png';
-            if (timeLength === '1 month') return '../biden3.png';
-            return '../biden4.png';
+            if (timeLength === '1 day') return '/test/biden1.png';
+            if (timeLength === '1 week') return '/test/biden2.png';
+            if (timeLength === '1 month') return '/test/biden3.png';
+            return '/test/biden4.png';
         }
     };
-    const trempImage = candidate === 'tremp' ? getImageForCandidate('tremp', timeLength) : '../tremp1.png';
-    const bodenImage = candidate === 'boden' ? getImageForCandidate('boden', timeLength) : '../biden1.png';
+    const trempImage = candidate === 'tremp' ? getImageForCandidate('tremp', timeLength) : '/test/tremp1.png';
+    const bodenImage = candidate === 'boden' ? getImageForCandidate('boden', timeLength) : '/test/biden1.png';
 
 
 
@@ -121,13 +121,13 @@ const App = () => {
                 <WalletModalProvider>
                     <WalletMultiButton />
                     <div className="app-container">
-                        <img src="../header.png" alt="Header" className="header-image" />
+                        <img src="/test/header.png" alt="Header" className="header-image" />
                         <div className="horizontal-layout">
 
 
-                            <PresidentDisplay imageSrc={bodenImage} isSelected={candidate === 'boden'} totalVotes={boden} presidentTitle={"Jeo Boden"} podiumImageSrc={"../podium.png"} presidentLink={"https://www.boden4pres.com/"} />
+                            <PresidentDisplay imageSrc={bodenImage} isSelected={candidate === 'boden'} totalVotes={boden} presidentTitle={"Jeo Boden"} podiumImageSrc={"/test/podium.png"} presidentLink={"https://www.boden4pres.com/"} />
                             <VoteBar timeLength={timeLength} candidate={candidate} trempAmount={tremp} bodenAmount={boden} />
-                            <PresidentDisplay imageSrc={trempImage} isSelected={candidate === 'tremp'} totalVotes={tremp} presidentTitle={"Doland Tremp"} podiumImageSrc={"../podium2.png"} presidentLink={"https://www.tremp.xyz/"} />
+                            <PresidentDisplay imageSrc={trempImage} isSelected={candidate === 'tremp'} totalVotes={tremp} presidentTitle={"Doland Tremp"} podiumImageSrc={"/test/podium2.png"} presidentLink={"https://www.tremp.xyz/"} />
                         </div>
                         <VoteComponent
                             amount={amount}
@@ -143,7 +143,7 @@ const App = () => {
                     <div className="treasury-container">
                         <h2 className="treasury-title">Treasury Amount</h2>
 
-                        <img src="../voteVaultBackground.png" alt="TreasuryBackground" className="treasury-image" />
+                        <img src="/test/voteVaultBackground.png" alt="TreasuryBackground" className="treasury-image" />
                         <div className="treasury-value">{Math.round(treasuryData)}<br />$VOTE</div>
 
                     </div>
