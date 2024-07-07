@@ -1,5 +1,5 @@
 {
-  "address": "98q6XA7arUMxoc7bLNW1ZQtUvckjQzyo4DzH67w6boe6",
+  "address": "FfUTJ9ehMc2wbB4mXp6KmM2idNZE1p4qFFVPysGFB3Gi",
   "metadata": {
     "name": "vote_program_solana",
     "version": "0.1.0",
@@ -682,7 +682,7 @@
         "kind": "enum",
         "variants": [
           {
-            "name": "OneMinute"
+            "name": "OneWeek"
           },
           {
             "name": "OneDay"

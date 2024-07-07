@@ -1,8 +1,11 @@
 // VoteBar.js
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { useState, useEffect } from "react";
-import { fetchData } from './blockchainData/globalVotes.ts';
+import { fetchGlobalAccountData } from './blockchainData/globalVotes.ts';
 import "./votebar.css";
+
+
+
 
 const VoteBar = ({ timeLength, candidate }) => {
   const { connection } = useConnection();
@@ -11,11 +14,16 @@ const VoteBar = ({ timeLength, candidate }) => {
 
   useEffect(() => {
     const getVoteData = async () => {
-      const data = await fetchData();
+      const data = await fetchGlobalAccountData();
       setVoteData(data);
     };
+    getVoteData()
+    const interval = setInterval(() => {
+      getVoteData()
+}, 9000);
 
-    getVoteData();
+
+  return () => clearInterval(interval)
   }, []);
 
   if (!voteData) {
