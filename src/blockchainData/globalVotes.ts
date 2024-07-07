@@ -9,6 +9,9 @@ const payee = new PublicKey("Ew824EPiCGbFnL6jkY1JP8qY6n5oRu1DhSLo59fmwkdb");
 
 const programId = new PublicKey("FfUTJ9ehMc2wbB4mXp6KmM2idNZE1p4qFFVPysGFB3Gi");
 const MINT = new PublicKey('6ufvLNfXc5MhwnTx2437xzP3PHYu9xt54TPf3ACshE56');    // e.g., EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v
+const TREASURY = new PublicKey("Bbptu2vKaMXrcAsfRvU8XJHj3U5J5U4GTY8PJwzosFkT");
+
+
 const TOKEN_PROGRAM_ID = new PublicKey('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');
 const ASSOCIATED_TOKEN_PROGRAM_ID = new PublicKey('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL');
 
@@ -106,5 +109,20 @@ export const getTokenBalance = async (owner) => {
     return null;
   }
 };
+
+export const getTreasuryBalance = async () => {
+  try {
+    // Find associated token address
+
+    // Fetch token account balance
+    const balance = await connectionLocal.getTokenAccountBalance(TREASURY);
+
+    return balance.value.uiAmount; // Return token balance
+  } catch (error) {
+    console.error("Error fetching token balance:", error);
+    return null;
+  }
+};
+
 
 

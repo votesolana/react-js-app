@@ -1,63 +1,32 @@
-// VoteBar.js
-import { useConnection, useWallet } from "@solana/wallet-adapter-react";
-import { useState, useEffect } from "react";
-import { fetchGlobalAccountData } from './blockchainData/globalVotes.ts';
+import React from "react";
 import "./votebar.css";
 
+const VoteBar = ({ trempAmount, bodenAmount }) => {
+  const totalVotes = trempAmount + bodenAmount;
+  const trempPercentage = Math.round((trempAmount / totalVotes) * 100);
+  const bodenPercentage = Math.round((bodenAmount / totalVotes) * 100);
 
-
-
-const VoteBar = ({ timeLength, candidate }) => {
-  const { connection } = useConnection();
-  const { publicKey, sendTransaction } = useWallet();
-  const [voteData, setVoteData] = useState(null);
-
-  useEffect(() => {
-    const getVoteData = async () => {
-      const data = await fetchGlobalAccountData();
-      setVoteData(data);
-    };
-    getVoteData()
-    const interval = setInterval(() => {
-      getVoteData()
-}, 9000);
-
-
-  return () => clearInterval(interval)
-  }, []);
-
-  if (!voteData) {
-    return <p>Loading vote data...</p>;
+  let winningMessage = "";
+  if (trempPercentage > bodenPercentage) {
+    winningMessage = "Tremp is winning!";
+  } else if (bodenPercentage > trempPercentage) {
+    winningMessage = "Boden took the lead!";
+  } else {
+    winningMessage = "It's all tied up, folks!";
   }
-
-  let { tremp, boden } = voteData;
-  if (boden === 0) {
-    boden = 1;
-  }
-  const totalVotes = tremp + boden;
-  const trempPercentage = (tremp / totalVotes) * 100;
-  const bodenPercentage = (boden / totalVotes) * 100;
-
-
 
   return (
     <div className="vote-bar-wrapper">
+      <div className="winning-message">{winningMessage}</div>
       <div className="vote-bar-container">
-
-        <div className="vote-bar-label">
-          <p>Boden: {boden}</p>
-        </div>
         <div className="vote-bar-progress">
-          <div className="vote-bar-tremp" style={{ width: `${trempPercentage}%` }} />
-          <div className="vote-bar-boden" style={{ width: `${bodenPercentage}%` }} />
-          <div className="vote-bar-percentage">
-            {boden} / {tremp} 
+          <div className="vote-bar-boden" style={{ width: `${bodenPercentage}%` }}>
+            <div className="vote-bar-percentage">{bodenPercentage}%</div>
+          </div>
+          <div className="vote-bar-tremp" style={{ width: `${trempPercentage}%` }}>
+            <div className="vote-bar-percentage">{trempPercentage}%</div>
           </div>
         </div>
-        <div className="vote-bar-label">
-          <p>Tremp: {tremp}</p>
-        </div>
-
       </div>
     </div>
   );

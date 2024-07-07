@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { useConnection, useWallet, useAnchorWallet } from '@solana/wallet-adapter-react';
+import { useWallet, useAnchorWallet, useConnection } from '@solana/wallet-adapter-react';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { Slider, Select, MenuItem, Button, FormControl, InputLabel, RadioGroup, FormControlLabel, Radio } from '@mui/material';
 import { PublicKey, Keypair } from '@solana/web3.js';
@@ -7,14 +7,15 @@ import { Program, Idl, AnchorProvider, setProvider, BN } from '@coral-xyz/anchor
 import { fetchUserVoteInfo, getTokenBalance, getTrempTokenAddress } from './blockchainData/globalVotes';
 import idl from './blockchainData/idl.json';
 import { mintTo } from "@solana/spl-token";
+import "./VoteComponent.css";
 
 const mintKeypair = Keypair.fromSecretKey(new Uint8Array([
-    228, 20, 203, 114, 138, 221, 55, 253, 249, 14, 147,
-    163, 173, 20, 151, 0, 11, 17, 10, 157, 49, 178,
-    185, 26, 156, 224, 229, 49, 149, 103, 54, 123, 87,
-    200, 164, 167, 140, 182, 196, 90, 158, 150, 65, 160,
-    113, 178, 68, 130, 117, 64, 104, 126, 104, 40, 216,
-    248, 29, 116, 77, 168, 169, 120, 236, 65
+  228, 20, 203, 114, 138, 221, 55, 253, 249, 14, 147,
+  163, 173, 20, 151, 0, 11, 17, 10, 157, 49, 178,
+  185, 26, 156, 224, 229, 49, 149, 103, 54, 123, 87,
+  200, 164, 167, 140, 182, 196, 90, 158, 150, 65, 160,
+  113, 178, 68, 130, 117, 64, 104, 126, 104, 40, 216,
+  248, 29, 116, 77, 168, 169, 120, 236, 65
 ]));
 
 const VoteComponent = () => {
@@ -36,6 +37,7 @@ const VoteComponent = () => {
   const [amount, setAmount] = useState(5000);
   const [candidate, setCandidate] = useState('tremp');
   const [timeLength, setTimeLength] = useState('1 day');
+  const [countdown, setCountdown] = useState(0);
 
   const provider = useMemo(() => new AnchorProvider(connection, wallet, { commitment: 'processed' }), [connection, wallet]);
   setProvider(provider);
@@ -57,6 +59,11 @@ const VoteComponent = () => {
         let voteInfo = await fetchUserVoteInfo(userVoteInfoAddress[0]);
         setVoteInfoData(voteInfo);
         console.log(voteInfo);
+
+        if (voteInfo && voteInfo.is_voted) {
+          const endTime = Number(voteInfo.vote_locked_until) - Math.floor(Date.now() / 1000);
+          setCountdown(endTime > 0 ? endTime : 0);
+        }
 
         let [treasury] = PublicKey.findProgramAddressSync(
           [Buffer.from("vote_vaulttremp")],
@@ -97,7 +104,6 @@ const VoteComponent = () => {
         setDataFetched(true);
       } catch (error) {
         if (error.message === "Account does not exist") {
-          // This means the user has never voted before
           setVoteInfoData(null);
           setIsLoading(false);
           setDataFetched(true);
@@ -116,32 +122,41 @@ const VoteComponent = () => {
 
   }, [publicKey, connection, dataFetched]);
 
+  useEffect(() => {
+    if (countdown > 0) {
+      const timer = setInterval(() => {
+        setCountdown(prevCountdown => prevCountdown - 1);
+      }, 1000);
+
+      return () => clearInterval(timer);
+    }
+  }, [countdown]);
+
   const handleAmountChange = (event, newValue) => {
     setAmount(newValue);
   };
 
   const calculateRewards = useMemo(() => {
-    const baseRate = 20; // 20 tokens for 100 tokens input for 5 months
+    const baseRate = 20;
     let rewardRateDenominator = 0.2;
 
     switch (timeLength) {
       case '1 day':
-        rewardRateDenominator /= (5.0 * 4 * 7 * 3); // Adjusted for 1 day lock
+        rewardRateDenominator /= (5.0 * 4 * 7 * 3);
         break;
       case '1 week':
-        rewardRateDenominator /= (5.0 * 4 * 2); // Adjusted for 1 week lock
+        rewardRateDenominator /= (5.0 * 4 * 2);
         break;
       case '1 month':
-        rewardRateDenominator /= (5.0 * 1.5); // Adjusted for 1 month lock
+        rewardRateDenominator /= (5.0 * 1.5);
         break;
       case 'election day':
-        rewardRateDenominator = 0.2; // Adjusted for election day lock
+        rewardRateDenominator = 0.2;
         break;
       default:
-        rewardRateDenominator = 0.2; // Default to 1 if no valid timeLength is provided
+        rewardRateDenominator = 0.2;
     }
 
-    // Calculate rewards based on the adjusted reward rate denominator
     return Math.round(amount * rewardRateDenominator);
   }, [amount, timeLength]);
 
@@ -151,7 +166,6 @@ const VoteComponent = () => {
       return;
     }
 
-    // Dynamically set the time length object key
     const timeLengthObj = (() => {
       switch (timeLength) {
         case '1 day':
@@ -193,9 +207,9 @@ const VoteComponent = () => {
       const tx = await program.methods
         .collectVote()
         .accounts({
-          voteInfoAccount: voteInfo.publicKey, // Use the correct voteInfo account public key
-          voteAccount: voteInfo.vote_account, // Assuming vote_account is a part of voteInfo object
-          userVoteWifTrempAccount: voteInfo.user_vote_wif_tremp_account, // Assuming user_vote_wif_tremp_account is a part of voteInfo object
+          voteInfoAccount: voteInfo.publicKey,
+          voteAccount: voteInfo.vote_account,
+          userVoteWifTrempAccount: voteInfo.user_vote_wif_tremp_account,
           mint: MINT,
           signer: wallet.publicKey,
         }).transaction();
@@ -207,6 +221,20 @@ const VoteComponent = () => {
       console.error('Claim vote transaction error:', error);
     }
   };
+
+  const formatTime = (seconds) => {
+    if (seconds <= 0) return "0M 0D 0H 0m 0s";
+
+    const months = Math.floor(seconds / (30 * 24 * 60 * 60));
+    seconds -= months * 30 * 24 * 60 * 60;
+    const days = Math.floor(seconds / (24 * 60 * 60));
+    seconds -= days * 24 * 60 * 60;
+    const hours = Math.floor(seconds / (60 * 60));
+    seconds -= hours * 60 * 60;
+    const minutes = Math.floor(seconds / 60);
+    seconds -= minutes * 60;
+    return `${months}M ${days}D ${hours}H ${minutes}m ${seconds}s`;
+  }
 
   if (!connected) {
     return (
@@ -226,46 +254,37 @@ const VoteComponent = () => {
 
   if (tokenBalance < 5000) {
     return (
-      <div style={{ maxWidth: '600px', margin: '20px auto', padding: '20px', border: '1px solid #ccc', borderRadius: '8px', background: '#fff' }}>
+      <div className="vote-container">
         <p>You need at least 5000 vote tokens to place a vote.</p>
       </div>
     );
   }
 
   if (voteInfoData && voteInfoData.is_voted) {
-    console.log("bob", voteInfoData)
-    const endTime = Number(voteInfoData.vote_locked_until) - Math.floor(Date.now() / 1000);
-    const formatTime = (seconds) => {
-      const months = Math.floor(seconds / (30 * 24 * 60 * 60));
-      seconds -= months * 30 * 24 * 60 * 60;
-      const days = Math.floor(seconds / (24 * 60 * 60));
-      seconds -= days * 24 * 60 * 60;
-      const hours = Math.floor(seconds / (60 * 60));
-      seconds -= hours * 60 * 60;
-      const minutes = Math.floor(seconds / 60);
-      seconds -= minutes * 60;
-      return `${months}M ${days}D ${hours}H ${minutes}m ${seconds}s`;
-    }
-
     return (
-      <div style={{ maxWidth: '600px', margin: '20px auto', padding: '20px', border: '1px solid #ccc', borderRadius: '8px', background: '#fff' }}>
+      <div className="vote-container">
+        <h2>Your Vote Is Sealed</h2>
         <p>Vote Amount: {voteInfoData.vote_amount}</p>
         <p>Voted for: {voteInfoData.wif_tremp ? 'Tremp' : 'Boden'}</p>
-        {endTime > 0 ? (
-          <p>Time Left: {formatTime(endTime)}</p>
+        {countdown > 0 ? (
+          <div className="clock-countdown">
+            <p>Time Left: {formatTime(countdown)}</p>
+          </div>
         ) : (
           <p>Your votes and rewards are unlocked.</p>
         )}
-        <Button variant="contained" color="primary" onClick={handleClaim} disabled={endTime > 0}>
-          Claim
-        </Button>
+        <div className="button-container">
+          <Button variant="contained" color="primary" onClick={handleClaim} disabled={countdown > 0}>
+            Claim
+          </Button>
+        </div>
       </div>
     );
   }
 
   return (
-    <div style={{ maxWidth: '600px', margin: '20px auto', padding: '20px', border: '1px solid #ccc', borderRadius: '8px', background: '#fff' }}>
-      <FormControl fullWidth margin="normal">
+    <div className="vote-container">
+      <FormControl fullWidth margin="normal" className="form-control">
         <InputLabel id="time-length-label">Time Length</InputLabel>
         <Select
           labelId="time-length-label"
@@ -279,8 +298,8 @@ const VoteComponent = () => {
         </Select>
       </FormControl>
 
-      <div style={{ margin: '20px 0' }}>
-        <InputLabel>Amount: {amount}</InputLabel>
+      <div className="slider-container">
+        <InputLabel className="slider-label">Amount: {amount}</InputLabel>
         <Slider
           value={amount}
           min={5000}
@@ -291,21 +310,23 @@ const VoteComponent = () => {
         />
       </div>
 
-      <FormControl component="fieldset" margin="normal">
-        <RadioGroup value={candidate} onChange={(e) => setCandidate(e.target.value)}>
+      <FormControl component="fieldset" className="form-control">
+        <RadioGroup value={candidate} onChange={(e) => setCandidate(e.target.value)} className="radio-group">
           <FormControlLabel value="boden" control={<Radio />} label="Boden" />
           <FormControlLabel value="tremp" control={<Radio />} label="Tremp" />
         </RadioGroup>
       </FormControl>
 
-      <div style={{ margin: '20px 0' }}>
-        <p>Total Vote Tokens: {tokenBalance}</p>
+      <div className="token-info">
+        <p>Your Tokens: {tokenBalance}</p>
         <p>Estimated Rewards: {calculateRewards} tokens</p>
       </div>
 
-      <Button variant="contained" color="primary" onClick={handleSubmit} disabled={amount < 5000}>
-        Place Vote
-      </Button>
+      <div className="button-container">
+        <Button variant="contained" color="primary" onClick={handleSubmit} disabled={amount < 5000}>
+          Place Vote
+        </Button>
+      </div>
     </div>
   );
 };

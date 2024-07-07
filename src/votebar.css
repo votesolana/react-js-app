@@ -9,20 +9,30 @@
   justify-content: center;
 }
 
-/* Styles for VoteBar */
+.winning-message {
+  position: absolute;
+  top: -40px; /* Adjust as needed to position above the vote bars */
+  left: 0;
+  right: 0;
+  font-size: 18px; /* Adjust font size as needed */
+  font-weight: bold;
+}
+
 .vote-bar-wrapper {
+  position: relative;
   display: flex;
   justify-content: center;
-  margin: 20px;
+  align-items: center;
+  width: 100%;
+  text-align: center; /* Centers contents horizontally */
 }
 
 .vote-bar-container {
+  display: flex;
+  flex-direction: column;
   width: 80%;
-  max-width: 800px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  overflow: hidden;
-  background: #fff;
+  border: 5px solid #ccc; /* Border style */
+  border-radius: 8px; /* Rounded corners */
 }
 
 .vote-bar-label {
@@ -30,12 +40,9 @@
   text-align: center;
   padding: 5px;
 }
-
 .vote-bar-progress {
   display: flex;
-  align-items: center;
-  height: 50px;
-  background: #eee;
+  height: 30px;
   position: relative;
 }
 
@@ -50,10 +57,12 @@
 }
 
 .vote-bar-percentage {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  color: #000;
+
+  top: 50%;
+  transform: translateY(+35%);
+  width: 100%;
+  text-align: center;
+  color: white;
   font-weight: bold;
 }
 

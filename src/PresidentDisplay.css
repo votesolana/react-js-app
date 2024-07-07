@@ -1,0 +1,53 @@
+.president-display {
+  position: relative;
+  display: inline-block;
+  text-align: center;
+}
+
+.image-overlay {
+  position: relative;
+  display: inline-block;
+}
+
+.president-image {
+  max-width: 300px; /* Adjust size as needed */
+}
+
+.podium-overlay {
+  position: absolute;
+  top: 20px; /* Adjust top position */
+  left: 0; /* Default left position */
+  display: flex;
+  justify-content: center;
+  align-items: flex-end; /* Align podiums to bottom of president image */
+  width: 100%; /* Ensure podium overlay covers the entire president image */
+  height: 100%; /* Ensure podium overlay covers the entire president image */
+}
+
+.podium-overlay.tremp {
+  left: -50px; /* Adjust left position for tremp */
+}
+
+.podium-overlay.boden {
+  left: 36px; /* Adjust left position for boden */
+}
+
+.podium-image {
+  max-width: 220px; /* Adjust size as needed */
+}
+
+.president-info {
+  margin-bottom: 10px; /* Space between president info and image */
+}
+
+.president-title {
+  font-weight: bold;
+  font-size: 20px; /* Adjust font size */
+  text-decoration: underline;
+}
+
+.total-votes {
+  font-size: 18px;
+  color: black;
+  
+}

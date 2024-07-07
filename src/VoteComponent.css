@@ -1,0 +1,62 @@
+/* VoteComponent.css */
+
+.vote-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #e6f2ff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-control {
+  margin-bottom: 20px;
+}
+
+.slider-container {
+  margin-bottom: 20px;
+}
+
+.slider-label {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.token-info {
+  margin-bottom: 20px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.clock-countdown {
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.button-container button {
+  margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+  .vote-container {
+    padding: 10px;
+  }
+}
