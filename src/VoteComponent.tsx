@@ -256,7 +256,7 @@ const VoteComponent = () => {
     return <p>Error: {error.message}</p>;
   }
 
-  if (tokenBalance < 5000 && !voteInfoData.is_voted) {
+  if (tokenBalance < 5000 && (!voteInfoData || !voteInfoData.is_voted)) {
     return (
       <div className="vote-container">
         <p>You need at least 5000 vote tokens to place a vote.</p>
