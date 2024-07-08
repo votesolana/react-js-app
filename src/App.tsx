@@ -1,67 +1,41 @@
-
-
+import React, { useMemo, useState, useEffect } from 'react';
 import "./App.css";
 import VoteBar from './VoteBar.jsx';
 import VoteComponent from './VoteComponent.js';
 import PresidentDisplay from './PresidentDisplay.js';
 
-import { fetchUserVoteInfo, getTreasuryBalance } from './blockchainData/globalVotes';
-
-import React, { useMemo, useState, useEffect } from 'react';
+import { fetchUserVoteInfo, getTreasuryBalance, fetchGlobalAccountData } from './blockchainData/globalVotes';
 import { ConnectionProvider, WalletProvider, useAnchorWallet, useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
 import { UnsafeBurnerWalletAdapter } from '@solana/wallet-adapter-wallets';
-
-import {
-    WalletModalProvider,
-    WalletMultiButton
-} from '@solana/wallet-adapter-react-ui';
+import { WalletModalProvider, WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { clusterApiUrl, PublicKey } from '@solana/web3.js';
-
-// Default styles that can be overridden by your app
-import '@solana/wallet-adapter-react-ui/styles.css';
-
 import { Program, Idl, AnchorProvider, setProvider, BN } from "@coral-xyz/anchor";
-import idl from "./blockchainData/idl.json";
-import { fetchGlobalAccountData } from './blockchainData/globalVotes.ts';
 import { Buffer } from 'buffer';
+import idl from "./blockchainData/idl.json";
 global.Buffer = Buffer;
 
-const programId = new PublicKey("FfUTJ9ehMc2wbB4mXp6KmM2idNZE1p4qFFVPysGFB3Gi");
+import '@solana/wallet-adapter-react-ui/styles.css';
 
+const programId = new PublicKey("FfUTJ9ehMc2wbB4mXp6KmM2idNZE1p4qFFVPysGFB3Gi");
 const program = new Program(idl as Idl, programId);
 
 
-
-
-
-
-
-
+const formatNumberWithCommas = (number) => {
+    return new Intl.NumberFormat('en-US').format(number);
+};
 
 const App = () => {
-    // The network can be set to 'devnet', 'testnet', or 'mainnet-beta'.
-
     const network = WalletAdapterNetwork.Testnet;
-
-    // You can also provide a custom RPC endpoint.
     const endpoint = useMemo(() => clusterApiUrl(network), [network]);
 
-    const wallets = useMemo(
-        () => [
-
-            new UnsafeBurnerWalletAdapter(),
-        ],
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        [network]
-    );
-
+    const wallets = useMemo(() => [new UnsafeBurnerWalletAdapter()], [network]);
 
     const [amount, setAmount] = useState(5000);
     const [candidate, setCandidate] = useState("tremp");
     const [timeLength, setTimeLength] = useState("1 day");
     const [voteData, setVoteData] = useState(null);
-    const [treasuryData, setreasuryData] = useState(null);
+    const [treasuryData, setTreasuryData] = useState(null);
 
     useEffect(() => {
         const getVoteData = async () => {
@@ -71,29 +45,34 @@ const App = () => {
 
         const getTreasuryData = async () => {
             const data = await getTreasuryBalance();
-            setreasuryData(data);
+            setTreasuryData(data);
         };
 
-
-        getVoteData()
+        getVoteData();
         getTreasuryData();
-        const interval = setInterval(() => {
-            getVoteData()
+
+        const voteDataInterval = setInterval(() => {
+            getVoteData();
         }, 9000);
 
+        const treasuryDataInterval = setInterval(() => {
+            getTreasuryData();
+        }, 9000);
 
-        return () => clearInterval(interval)
+        return () => {
+            clearInterval(voteDataInterval);
+            clearInterval(treasuryDataInterval);
+        };
     }, []);
 
-    if (!voteData) {
-        return <p>Loading vote data...</p>;
+    if (!voteData || !treasuryData) {
+        return <p>Loading data...</p>;
     }
 
     let { tremp, boden } = voteData;
     if (boden === 0) {
         boden = 1;
     }
-
 
     const getImageForCandidate = (candidate, timeLength) => {
         if (candidate === 'tremp') {
@@ -108,12 +87,9 @@ const App = () => {
             return '/test/biden4.png';
         }
     };
+
     const trempImage = candidate === 'tremp' ? getImageForCandidate('tremp', timeLength) : '/test/tremp1.png';
     const bodenImage = candidate === 'boden' ? getImageForCandidate('boden', timeLength) : '/test/biden1.png';
-
-
-
-
 
     return (
         <ConnectionProvider endpoint={endpoint}>
@@ -123,8 +99,6 @@ const App = () => {
                     <div className="app-container">
                         <img src="/test/header.png" alt="Header" className="header-image" />
                         <div className="horizontal-layout">
-
-                        
                             <PresidentDisplay imageSrc={bodenImage} isSelected={candidate === 'boden'} totalVotes={boden} presidentTitle={"Jeo Boden"} podiumImageSrc={"/test/podium.png"} presidentLink={"https://www.boden4pres.com/"} />
                             <VoteBar timeLength={timeLength} candidate={candidate} trempAmount={tremp} bodenAmount={boden} />
                             <PresidentDisplay imageSrc={trempImage} isSelected={candidate === 'tremp'} totalVotes={tremp} presidentTitle={"Doland Tremp"} podiumImageSrc={"/test/podium2.png"} presidentLink={"https://www.tremp.xyz/"} />
@@ -137,17 +111,17 @@ const App = () => {
                             timeLength={timeLength}
                             setTimeLength={setTimeLength}
                         />
-                    </div>
-
-       
+                   
+                    <a href="https://explorer.solana.com/address/Bbptu2vKaMXrcAsfRvU8XJHj3U5J5U4GTY8PJwzosFkT?cluster=testnet">
                     <div className="treasury-container">
                         <h2 className="treasury-title">Treasury Amount</h2>
-
                         <img src="/test/voteVaultBackground.png" alt="TreasuryBackground" className="treasury-image" />
-                        <div className="treasury-value">{Math.round(treasuryData)}<br />$VOTE</div>
-
+   
+                        <div className="treasury-value">{formatNumberWithCommas(Math.round(treasuryData))}<br />$VOTE</div>
+                       
                     </div>
-
+                    </a>
+                    </div>
                 </WalletModalProvider>
             </WalletProvider>
         </ConnectionProvider>

@@ -1,23 +1,42 @@
-body{
-    background-color: #FFEFD5;
+body {
+  background-color: #4985EC;
+  margin: 0;
+  padding: 0;
+  height: 100%; /* Ensure body covers the full height */
 }
 
-.header-image {
-    width: 80%; /* Adjust the width as needed */
-    max-width: 700px; /* Limit the maximum width of the header image */
-    margin-bottom: 20px; /* Space between header image and content */
-    display: block; /* Ensures the image is treated as a block element */
-    margin-left: auto; /* Center the image horizontally */
-    margin-right: auto; /* Center the image horizontally */
-  }
+html {
+  height: 100%; /* Ensure html covers the full height */
+}
 
-.treasury-image{
-    width: 80%; /* Adjust the width as needed */
-    max-width: 700px; /* Limit the maximum width of the header image */
-    margin-bottom: 20px; /* Space between header image and content */
-    display: block; /* Ensures the image is treated as a block element */
-    margin-left: auto; /* Center the image horizontally */
-    margin-right: auto; /* Center the image horizontally */
+.app-container {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh; /* Ensure the container covers the full viewport height */
+}
+
+body::before {
+  content: '';
+  position: fixed; /* Fixed positioning to ensure it spans the full viewport height */
+  top: 0;
+  bottom: 0;
+  left: 20.33%;
+  right: 20.33%;
+  background-color: snow; /* Color of the strip */
+  z-index: -1; /* Ensure it stays behind other elements */
+}
+
+/* Ensure all content is positioned above the background overlay */
+.header-image,
+.treasury-image {
+  width: 80%;
+  max-width: 700px;
+  margin-bottom: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  z-index: 1;
 }
 
 .treasury-title {
@@ -27,25 +46,30 @@ body{
   transform: translate(-50%, -50%);
   font-size: 2rem;
   color: white;
+  z-index: 2; /* Ensure it's above other elements */
 }
 
-  a {
-    text-decoration: none; /* Remove underline */
-    color: inherit; /* Inherit text color */
-  }
-
-  .treasury-container {
-    position: relative;
-    text-align: center;
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
-
+.treasury-container {
+  position: relative;
+  text-align: center;
+  z-index: 1;
+}
 
 .treasury-value {
-    position: absolute;
-    top: 51%;
-    left: 50.7%;
-    transform: translate(-50%, -50%);
-    font-size: 2rem;
-    color: white;
+  position: absolute;
+  top: 51%;
+  left: 50.7%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+  color: white;
+  z-index: 2; /* Ensure it's above other elements */
+  background-color: red; /* Red background */
+  border: 5px solid black; /* Black border */
+  padding: 10px; /* Padding inside the box */
+  display: inline-block; /* Ensure the box size fits the text */
 }

@@ -18,6 +18,10 @@ const mintKeypair = Keypair.fromSecretKey(new Uint8Array([
   248, 29, 116, 77, 168, 169, 120, 236, 65
 ]));
 
+const formatNumberWithCommas = (number) => {
+  return new Intl.NumberFormat('en-US').format(number);
+};
+
 const VoteComponent = () => {
   const { connected, publicKey } = useWallet();
   const wallet = useAnchorWallet();
@@ -157,7 +161,7 @@ const VoteComponent = () => {
         rewardRateDenominator = 0.2;
     }
 
-    return Math.round(amount * rewardRateDenominator);
+    return formatNumberWithCommas(Math.round(amount * rewardRateDenominator));
   }, [amount, timeLength]);
 
   const handleSubmit = async () => {
@@ -233,7 +237,7 @@ const VoteComponent = () => {
     seconds -= hours * 60 * 60;
     const minutes = Math.floor(seconds / 60);
     seconds -= minutes * 60;
-    return `${months}M ${days}D ${hours}H ${minutes}m ${seconds}s`;
+    return `${formatNumberWithCommas(months)}M ${formatNumberWithCommas(days)}D ${formatNumberWithCommas(hours)}H ${formatNumberWithCommas(minutes)}m ${formatNumberWithCommas(seconds)}s`;
   }
 
   if (!connected) {
@@ -252,7 +256,7 @@ const VoteComponent = () => {
     return <p>Error: {error.message}</p>;
   }
 
-  if (tokenBalance < 5000) {
+  if (tokenBalance < 5000 && !voteInfoData.is_voted) {
     return (
       <div className="vote-container">
         <p>You need at least 5000 vote tokens to place a vote.</p>
@@ -264,7 +268,7 @@ const VoteComponent = () => {
     return (
       <div className="vote-container">
         <h2>Your Vote Is Sealed</h2>
-        <p>Vote Amount: {voteInfoData.vote_amount}</p>
+        <p>Vote Amount: {formatNumberWithCommas(voteInfoData.vote_amount)}</p>
         <p>Voted for: {voteInfoData.wif_tremp ? 'Tremp' : 'Boden'}</p>
         {countdown > 0 ? (
           <div className="clock-countdown">
@@ -299,7 +303,7 @@ const VoteComponent = () => {
       </FormControl>
 
       <div className="slider-container">
-        <InputLabel className="slider-label">Amount: {amount}</InputLabel>
+        <InputLabel className="slider-label">Amount: {formatNumberWithCommas(amount)}</InputLabel>
         <Slider
           value={amount}
           min={5000}
@@ -307,6 +311,7 @@ const VoteComponent = () => {
           step={100}
           onChange={handleAmountChange}
           valueLabelDisplay="auto"
+          valueLabelFormat={formatNumberWithCommas}
         />
       </div>
 
@@ -318,7 +323,7 @@ const VoteComponent = () => {
       </FormControl>
 
       <div className="token-info">
-        <p>Your Tokens: {tokenBalance}</p>
+        <p>Your Tokens: {formatNumberWithCommas(tokenBalance)}</p>
         <p>Estimated Rewards: {calculateRewards} tokens</p>
       </div>
 
