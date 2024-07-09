@@ -2,7 +2,9 @@ body {
   background-color: #4985EC;
   margin: 0;
   padding: 0;
-  height: 100%; /* Ensure body covers the full height */
+  height: 100%;
+  width: 100%; /* Ensure body covers the full height */
+  overflow-x: hidden; 
 }
 
 html {
@@ -12,16 +14,19 @@ html {
 .app-container {
   position: relative;
   z-index: 1;
-  min-height: 100vh; /* Ensure the container covers the full viewport height */
+  min-height: 100vh; 
+  width: 100%;/* Ensure the container covers the full viewport height */
 }
 
-body::before {
+.app-container::before {
   content: '';
   position: fixed; /* Fixed positioning to ensure it spans the full viewport height */
   top: 0;
   bottom: 0;
   left: 20.33%;
   right: 20.33%;
+
+
   background-color: snow; /* Color of the strip */
   z-index: -1; /* Ensure it stays behind other elements */
 }

@@ -111,16 +111,16 @@ const App = () => {
                             timeLength={timeLength}
                             setTimeLength={setTimeLength}
                         />
-                   
-                    <a href="https://explorer.solana.com/address/Bbptu2vKaMXrcAsfRvU8XJHj3U5J5U4GTY8PJwzosFkT?cluster=testnet">
-                    <div className="treasury-container">
-                        <h2 className="treasury-title">Treasury Amount</h2>
-                        <img src="/test/voteVaultBackground.png" alt="TreasuryBackground" className="treasury-image" />
-   
-                        <div className="treasury-value">{formatNumberWithCommas(Math.round(treasuryData))}<br />$VOTE</div>
-                       
-                    </div>
-                    </a>
+
+                        <a href="https://explorer.solana.com/address/Bbptu2vKaMXrcAsfRvU8XJHj3U5J5U4GTY8PJwzosFkT?cluster=testnet">
+                            <div className="treasury-container">
+                                <h2 className="treasury-title">Treasury Amount</h2>
+                                <img src="/test/voteVaultBackground.png" alt="TreasuryBackground" className="treasury-image" />
+
+                                <div className="treasury-value">{formatNumberWithCommas(Math.round(treasuryData))}<br />$VOTE</div>
+
+                            </div>
+                        </a>
                     </div>
                 </WalletModalProvider>
             </WalletProvider>

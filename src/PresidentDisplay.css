@@ -10,7 +10,7 @@
 }
 
 .president-image {
-  max-width: 200px; /* Adjust size as needed */
+  width: 60%;
 }
 
 .podium-overlay {
@@ -25,7 +25,8 @@
 }
 
 .podium-overlay.tremp {
-  left: -50px; /* Adjust left position for tremp */
+  left: -35px; /* Adjust left position for tremp */
+  bottom: 15px;
 }
 
 .podium-overlay.boden {
@@ -33,6 +34,7 @@
 }
 
 .podium-image {
+  width: 100%;
   max-width: 220px; /* Adjust size as needed */
 }
 
