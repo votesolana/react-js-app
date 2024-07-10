@@ -15,8 +15,7 @@
 
 .podium-overlay {
   position: absolute;
-  top: 20px; /* Adjust top position */
-  left: 0; /* Default left position */
+  top: 15px; /* Adjust top position *//* Default left position */
   display: flex;
   justify-content: center;
   align-items: flex-end; /* Align podiums to bottom of president image */
@@ -24,17 +23,10 @@
   height: 100%; /* Ensure podium overlay covers the entire president image */
 }
 
-.podium-overlay.tremp {
-  left: -35px; /* Adjust left position for tremp */
-  bottom: 15px;
-}
 
-.podium-overlay.boden {
-  left: 36px; /* Adjust left position for boden */
-}
 
 .podium-image {
-  width: 100%;
+  width: 36%;
   max-width: 220px; /* Adjust size as needed */
 }
 
@@ -45,11 +37,25 @@
 .president-title {
   font-weight: bold;
   font-size: 20px; /* Adjust font size */
-  text-decoration: underline;
 }
 
 .total-votes {
   font-size: 18px;
   color: black;
-  
+  position: relative;
+  top:15px;
+
+}
+
+.president-display.lower-opacity {
+  opacity: 0.5; /* Adjust the opacity value as needed */
+}
+
+.explosion-gif {
+  position: absolute; /* Position absolutely to not affect layout */
+  left: 0;
+  bottom: 10px;
+  width: 100%; /* Ensure it covers the entire podium overlay */
+  height: 100%; /* Ensure it covers the entire podium overlay */
+  z-index: -1; /* Ensure it appears above other content in the podium overlay */
 }

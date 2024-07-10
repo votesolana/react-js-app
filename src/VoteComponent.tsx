@@ -22,7 +22,7 @@ const formatNumberWithCommas = (number) => {
   return new Intl.NumberFormat('en-US').format(number);
 };
 
-const VoteComponent = () => {
+const VoteComponent = ({ candidate, setCandidate, timeLength, setTimeLength }) => {
   const { connected, publicKey } = useWallet();
   const wallet = useAnchorWallet();
   const { connection } = useConnection();
@@ -39,8 +39,7 @@ const VoteComponent = () => {
   const [voteAccount, setVoteAccount] = useState(null);
   const [tokenBalance, setTokenBalance] = useState(0);
   const [amount, setAmount] = useState(5000);
-  const [candidate, setCandidate] = useState('tremp');
-  const [timeLength, setTimeLength] = useState('1 day');
+
   const [countdown, setCountdown] = useState(0);
 
   const provider = useMemo(() => new AnchorProvider(connection, wallet, { commitment: 'processed' }), [connection, wallet]);
@@ -255,21 +254,21 @@ const VoteComponent = () => {
   if (error) {
     return <p>Error: {error.message}</p>;
   }
-
+/*
   if (tokenBalance < 5000 && (!voteInfoData || !voteInfoData.is_voted)) {
     return (
       <div className="vote-container">
         <p>You need at least 5000 vote tokens to place a vote.</p>
       </div>
     );
-  }
+  }*/
 
   if (voteInfoData && voteInfoData.is_voted) {
     return (
       <div className="vote-container">
         <h2>Your Vote Is Sealed</h2>
         <p>Vote Amount: {formatNumberWithCommas(voteInfoData.vote_amount)}</p>
-        <p>Voted for: {voteInfoData.wif_tremp ? 'Tremp' : 'Boden'}</p>
+        <p>Voted for: {voteInfoData.wif_tremp ? 'Denald Tremp' : 'Jeo Boden'}</p>
         {countdown > 0 ? (
           <div className="clock-countdown">
             <p>Time Left: {formatTime(countdown)}</p>
@@ -317,8 +316,8 @@ const VoteComponent = () => {
 
       <FormControl component="fieldset" className="form-control">
         <RadioGroup value={candidate} onChange={(e) => setCandidate(e.target.value)} className="radio-group">
-          <FormControlLabel value="boden" control={<Radio />} label="Boden" />
-          <FormControlLabel value="tremp" control={<Radio />} label="Tremp" />
+          <FormControlLabel value="boden" control={<Radio />} label="Jeo Boden" />
+          <FormControlLabel value="tremp" control={<Radio />} label="Denald Tremp" />
         </RadioGroup>
       </FormControl>
 

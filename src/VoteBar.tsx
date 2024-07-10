@@ -1,6 +1,8 @@
 import React from "react";
 import "./votebar.css";
-
+const formatNumberWithCommas = (number) => {
+  return new Intl.NumberFormat('en-US').format(number);
+};
 const VoteBar = ({ trempAmount, bodenAmount }) => {
   const totalVotes = trempAmount + bodenAmount;
   const trempPercentage = Math.round((trempAmount / totalVotes) * 100);
@@ -27,6 +29,9 @@ const VoteBar = ({ trempAmount, bodenAmount }) => {
             <div className="vote-bar-percentage">{trempPercentage}%</div>
           </div>
         </div>
+      </div>
+      <div className="total-global-votes">
+        Total Votes Locked: {formatNumberWithCommas(totalVotes)}
       </div>
     </div>
   );

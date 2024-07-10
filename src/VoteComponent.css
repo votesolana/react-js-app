@@ -60,3 +60,8 @@
     padding: 10px;
   }
 }
+
+.form-control {
+  max-height: 200px; /* Set a maximum height to enable scrolling */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
