@@ -9,7 +9,7 @@ const PresidentDisplay = ({ imageSrc, podiumImageSrc, isSelected, totalVotes, pr
   const [playExplosion, setPlayExplosion] = useState(false);
 
   const getBackgroundColor = () => {
-    if (presidentTitle === 'Kamala Horriss') {
+    if (presidentTitle === 'Kamala Horris') {
       return '#454af5'; // Background color for Boden
     } else if (presidentTitle === 'Doland Tremp') {
       return '#ff3838'; // Background color for Tremp
