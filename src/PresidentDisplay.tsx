@@ -5,8 +5,17 @@ const formatNumberWithCommas = (number) => {
   return new Intl.NumberFormat('en-US').format(number);
 };
 
-const PresidentDisplay = ({ imageSrc, podiumImageSrc, isSelected, totalVotes, presidentTitle, presidentLink }) => {
+const PresidentDisplay = ({ imageSrc, podiumImageSrc, isSelected, totalVotes, presidentTitle, onClick }) => {
   const [playExplosion, setPlayExplosion] = useState(false);
+
+  const getBackgroundColor = () => {
+    if (presidentTitle === 'Kamala Harris') {
+      return '#454af5'; // Background color for Boden
+    } else if (presidentTitle === 'Doland Tremp') {
+      return '#ff3838'; // Background color for Tremp
+    }
+    return 'transparent'; // Default background color
+  };
 
   useEffect(() => {
     if (isSelected) {
@@ -18,24 +27,28 @@ const PresidentDisplay = ({ imageSrc, podiumImageSrc, isSelected, totalVotes, pr
   }, [isSelected]);
 
   return (
-    <div className={`president-display ${isSelected ? 'selected' : ''}`}>
-      <a href={presidentLink}>
-        <div className="president-info">
-          <p className="president-title">{presidentTitle}</p>
-        </div>
+    <div className={`president-display ${isSelected ? 'selected' : ''}`} onClick={onClick}    style={isSelected ? {
+      backgroundColor: getBackgroundColor(),
+    } : {}}>
+    
+     
         <div className="image-overlay">
           <img className="president-image" src={imageSrc} alt="Candidate" />
           <div className="podium-overlay">
             {playExplosion && (
-              <img className="explosion-gif" src="test/explosion.gif" alt="Explosion" />
+              <img className="explosion-gif" src="./explosion.gif" alt="Explosion" />
             )}
             <img className="podium-image" src={podiumImageSrc} alt="Podium" />
           </div>
         </div>
+        <div className="president-info">
+          <p className="president-title">{presidentTitle}</p>
+        </div>
         <div className="global-total-votes">
           <p>Votes: {formatNumberWithCommas(totalVotes)}</p>
         </div>
-      </a>
+ 
+
     </div>
   );
 };

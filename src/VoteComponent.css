@@ -1,34 +1,65 @@
 /* VoteComponent.css */
 
 .vote-container {
-  max-width: 600px;
-  margin: 0 auto;
   padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #e6f2ff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #E0F2FF;
+  max-width: 600px;
+  margin: auto;
+  text-align: center;
+  width: 90%;
 }
 
 .form-control {
   margin-bottom: 20px;
+  text-align: center;
 }
+
+
 
 .slider-container {
   margin-bottom: 20px;
 }
 
 .slider-label {
-  font-weight: bold;
-  margin-bottom: 10px;
+  font-size: 1rem;
+  color: #333;
 }
 
-.radio-group {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  margin-bottom: 20px;
+.button-container {
+  margin-top: 20px;
 }
+
+.MuiFormControl-root {
+  width: 100%;/* Ensure space below */
+  text-align: center;
+}
+
+.MuiSelect-root {
+  background-color: #f4f4f4;
+  border-radius: 4px;
+  padding: 12px 16px; /* Increase padding if needed */
+  margin-top: 8px; /* Space between label and select */
+}
+
+.MuiInputBase-input {
+  padding: 12px; /* Adjust padding if needed */
+}
+
+.MuiButton-root {
+  border-radius: 20px;
+  padding: 10px 20px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.MuiButton-root:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+
+
 
 .token-info {
   margin-bottom: 20px;
@@ -59,9 +90,4 @@
   .vote-container {
     padding: 10px;
   }
-}
-
-.form-control {
-  max-height: 200px; /* Set a maximum height to enable scrolling */
-  overflow-y: auto; /* Enable vertical scrolling */
 }

@@ -1,29 +1,59 @@
-.bebas-neue-regular {
-  font-family: "Bebas Neue", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-
 body {
-  background-color: #4985EC;
+  font-family: Helvetica, sans-serif;
+  background-color: #e6eefc;
+  background-size: cover; /* This stretches the image to cover the entire width of the screen */
+  background-position: center;
+
+  z-index: -1;
   margin: 0;
   padding: 0;
   height: 100%;
-  width: 100%; /* Ensure body covers the full height */
-  overflow-x: hidden; 
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* Dark bars on the sides */
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 17vw; /* Adjust width as needed */
+  background: rgb(30,189,255);
+  background: linear-gradient(180deg, rgba(30,189,255,1) 0%, rgba(111,53,53,1) 100%);
+  
+  
+  z-index: 0; /* Ensure it's behind other elements */
+}
+
+/* Left dark bar */
+body::before {
+  left: 0;
+}
+
+/* Right dark bar */
+body::after {
+  right: 0;
+}
+
+/* Remove dark bars on smaller screens */
+@media (max-width: 992px) {
+  body::before,
+  body::after {
+    display: none;
+  }
 }
 
 html {
-  height: 100%; /* Ensure html covers the full height */
+  height: 100%;
 }
 
 .app-container {
   position: relative;
   z-index: 1;
-  min-height: 100vh; 
-  width: 100%;/* Ensure the container covers the full viewport height */
-
+  min-height: 100vh;
+  width: 100%;
 }
 
 .root {
@@ -31,26 +61,17 @@ html {
 }
 
 
-.app-container::before {
-  content: '';
-  position: fixed; /* Fixed positioning to ensure it spans the full viewport height */
-  top: 0;
-  bottom: 0;
-  left: 20.33%;
-  right: 20.33%;
-  background-color: greenyellow;
-
-
-  background-color: snow; /* Color of the strip */
-  z-index: -1; /* Ensure it stays behind other elements */
+.wallet-button-container {
+  position: fixed; /* Ensure this positioning is applied */
+  top: 1px;
+  z-index: 1000; /* Ensure this is higher */
 }
 
-/* Ensure all content is positioned above the background overlay */
 .header-image,
 .treasury-image {
   width: 80%;
-  max-width: 700px;
-  margin-bottom: 20px;
+  max-width: 860px;
+  margin-bottom: 50px;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -58,15 +79,12 @@ html {
   z-index: 0;
 }
 
+.header-image {
+  margin-top: 40px;
+}
 
-.treasury-title {
-  position: absolute;
-  top: 15%;
-  left: 50.7%;
-  transform: translate(-50%, -50%);
-  font-size: 2rem;
-  color: rgb(255, 255, 255);
-  z-index: 2; /* Ensure it's above other elements */
+.treasury-image {
+  margin-bottom: 20px;
 }
 
 a {
@@ -85,11 +103,173 @@ a {
   top: 51%;
   left: 50.7%;
   transform: translate(-50%, -50%);
-  font-size: 20px;
+  font-size: 24px;
   color: white;
-  z-index: 2; /* Ensure it's above other elements */
-  background-color: red; /* Red background */
-  border: 5px solid black; /* Black border */
-  padding: 10px; /* Padding inside the box */
-  display: inline-block; /* Ensure the box size fits the text */
+  z-index: 2;
+  background-color: red;
+  border: 5px solid black;
+  padding: 10px;
+  display: inline-block;
+}
+
+.horizontal-layout {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 35px;
+}
+
+.president-display-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.vote-bar-percentage-container {
+  position: relative;
+  width: 100%;
+  height: 100px;
+}
+
+.vote-bar-percentage {
+  width: 30%; /* Default width */
+  max-width: 250px; /* Maximum width for larger screens */
+  margin: 0 auto;
+  text-align: center;
+  color: black;
+  font-weight: bold;
+  font-size: 18px;
+  position: absolute;
+  white-space: nowrap;
+  z-index: 2;
+  background-color: rgba(255, 255, 255, 0.849);
+  border: 1px solid black;
+  border-radius: 8px;
+}
+
+/* Media Queries for different screen sizes */
+@media (max-width: 1200px) {
+  .vote-bar-percentage {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .vote-bar-percentage {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .vote-bar-percentage {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .vote-bar-percentage {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .vote-bar-percentage {
+    font-size: 0.8rem;
+  }
+}
+
+.social-media-container {
+  display: flex;
+  justify-content: center; /* Center the container horizontally */
+  width: 58vw; /* 70% of viewport width */
+  margin: 0px auto;
+  margin-top: 60px;
+  z-index: 1000; /* Ensure it's on top of other elements */
+}
+
+.social-media-button {
+  display: flex;
+  justify-content: space-around; /* Distribute icons evenly */
+  align-items: center; /* Center icons vertically */
+  flex-direction: row; /* Arrange buttons in a row */
+  width: 100%; /* Full viewport width */
+  height: 80px; /* Adjust height as needed */
+  z-index: 1000; /* Make sure it's on top of other elements */
+}
+
+.social-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  color: black;
+  text-shadow:
+  2px 2px 0 white, /* Horizontal and vertical shadow offset, color */
+  -2px -2px 0 white, /* Shadow offsets in the opposite direction */
+  2px -2px 0 white, /* Other shadow offsets */
+  -2px 2px 0 white; /* Final shadow offset */
+  font-size: 40px;
+  text-decoration: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.social-button:hover {
+  color: red;
+}
+
+.disclaimer {
+  position: relative; /* Adjust positioning as needed */
+  bottom: 0;
+  width: 100%; /* Full width of the viewport */
+  text-align: center; /* Center the text */
+  padding: 5px;
+  background-color: #616d81; /* Background color of the disclaimer */
+  color: #fff; /* Text color */
+  font-size: 0.6rem; /* Adjust font size */
+}
+
+.dextools-widget-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto; /* Center the container */
+  max-width: 90vw; /* Ensures the container never gets wider than 90% of the viewport width */
+  width: 100%; /* Takes full width up to the max-width */
+  box-sizing: border-box; /* Ensures padding and border are included in the element's total width and height */
+}
+
+.dextools-widget-container iframe {
+  width: 100%;
+  height: auto;
+  max-width: 50vw; /* Max width of the iframe */
+  aspect-ratio: 1; 
+  background-color: #3579f0;
+  margin-bottom: 10px;
+}
+
+/* Media queries for different screen sizes */
+@media (max-width: 600px) {
+  .dextools-widget-container iframe {
+    max-width: 250px; /* Adjusts the iframe width for smaller screens */
+  }
+}
+
+@media (min-width: 600px) and (max-width: 1024px) {
+  .dextools-widget-container iframe {
+    max-width: 300px; /* Adjusts the iframe width for medium screens */
+  }
+}
+
+.ca {
+  font-size: 2.1vw;
+  text-align: center;
+  background-color: rgba(248, 42, 42, 0.884);
+  padding: 5px;
+  width: 60%;
+  margin: 10px auto;
+  color: white;
+  border: 1px solid black;
 }

@@ -1,5 +1,5 @@
 {
-  "address": "FfUTJ9ehMc2wbB4mXp6KmM2idNZE1p4qFFVPysGFB3Gi",
+  "address": "H6tgcEthAFnd2aiJp8ne4mE7FaonG1eP9ryXeodqn1ep",
   "metadata": {
     "name": "vote_program_solana",
     "version": "0.1.0",
@@ -642,21 +642,6 @@
       "code": 6003,
       "name": "TooLow",
       "msg": "Not enough vote token"
-    },
-    {
-      "code": 6004,
-      "name": "RewardPoolLow",
-      "msg": "Not enough tokens in reward pool to place this vote"
-    },
-    {
-      "code": 6005,
-      "name": "ProgramAlreadyInitialized",
-      "msg": "This program has already been deployed"
-    },
-    {
-      "code": 6006,
-      "name": "InvalidTimeLength",
-      "msg": "Invalid Time Length"
     }
   ],
   "types": [
@@ -682,10 +667,10 @@
         "kind": "enum",
         "variants": [
           {
-            "name": "OneWeek"
+            "name": "OneDay"
           },
           {
-            "name": "OneDay"
+            "name": "OneWeek"
           },
           {
             "name": "OneMonth"

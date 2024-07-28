@@ -6,5 +6,4 @@ export default defineConfig({
   plugins: [
     nodePolyfills(),
   ],
-  base: '/test',
 })

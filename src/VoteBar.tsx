@@ -12,21 +12,22 @@ const VoteBar = ({ trempAmount, bodenAmount }) => {
   if (trempPercentage > bodenPercentage) {
     winningMessage = "Tremp is winning!";
   } else if (bodenPercentage > trempPercentage) {
-    winningMessage = "Boden took the lead!";
+    winningMessage = "Kamala is ahead!";
   } else {
-    winningMessage = "It's all tied up, folks!";
+    winningMessage = "It's a tie!";
   }
 
   return (
     <div className="vote-bar-wrapper">
-      <div className="winning-message">{winningMessage}</div>
+     
       <div className="vote-bar-container">
         <div className="vote-bar-progress">
+        <div className="winning-message">{winningMessage}</div>
           <div className="vote-bar-boden" style={{ width: `${bodenPercentage}%` }}>
-            <div className="vote-bar-percentage">{bodenPercentage}%</div>
+
           </div>
           <div className="vote-bar-tremp" style={{ width: `${trempPercentage}%` }}>
-            <div className="vote-bar-percentage">{trempPercentage}%</div>
+          
           </div>
         </div>
       </div>

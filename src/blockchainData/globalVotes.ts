@@ -7,19 +7,20 @@ import { u64, bool  } from '@solana/buffer-layout-utils';
 
 const payee = new PublicKey("Ew824EPiCGbFnL6jkY1JP8qY6n5oRu1DhSLo59fmwkdb");
 
-const programId = new PublicKey("FfUTJ9ehMc2wbB4mXp6KmM2idNZE1p4qFFVPysGFB3Gi");
-const MINT = new PublicKey('6ufvLNfXc5MhwnTx2437xzP3PHYu9xt54TPf3ACshE56');    // e.g., EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v
-const TREASURY = new PublicKey("Bbptu2vKaMXrcAsfRvU8XJHj3U5J5U4GTY8PJwzosFkT");
+const programId = new PublicKey("H6tgcEthAFnd2aiJp8ne4mE7FaonG1eP9ryXeodqn1ep");
+const MINT = new PublicKey('7xyVxmGWot6kWD3Su7g717UU4JiBWxsKGfzNtn61vbcV');    
+const TREASURY = new PublicKey("GuBRTEBKztmSHSVJuXW4gRqaT1J5HDr7jUFkGjyfFcrk");
 
 
 const TOKEN_PROGRAM_ID = new PublicKey('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');
 const ASSOCIATED_TOKEN_PROGRAM_ID = new PublicKey('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL');
 
-const globalInfoAccount = "CfVK3uzDMvN36arGDL3ZutE5yd3qc1Z6Lc6b9rtnDvFX";
+const globalInfoAccount = "28WUbrqkJn4PsA4HFk7WXLRmafFT4rsyhFPBm5SVYLrQ";
 const globalInfoPublicKey = new PublicKey(globalInfoAccount);
 
 
-const connectionLocal = new Connection('https://api.testnet.solana.com', 'confirmed');
+const connectionLocal = new Connection('https://side-long-spree.solana-mainnet.quiknode.pro/1c221e7a4a8871ff8006a17b2d4ad4c3e83dfd0b/', 'confirmed');
+
 
 
 const GlobalVoteLayout = struct([
@@ -41,7 +42,6 @@ export const fetchGlobalAccountData = async () => {
       const bufferedData = Buffer.from(accountInfo.data);
       const modifiedBuffer = bufferedData.slice(8);
       const deserialized = GlobalVoteLayout.decode(modifiedBuffer);
-
       return deserialized;
     }
   } catch (error) {
@@ -57,7 +57,6 @@ export const fetchUserVoteInfo = async (accountAddress) => {
       const bufferedData = Buffer.from(accountInfo.data);
       const modifiedBuffer = bufferedData.slice(8);
       const deserialized = UserVoteInfo.decode(modifiedBuffer);
-
       return deserialized;
     }
   } catch (error) {
@@ -101,7 +100,6 @@ export const getTokenBalance = async (owner) => {
 
     // Fetch token account balance
     const balance = await connectionLocal.getTokenAccountBalance(tokenAddress);
-    console.log("Token balance:", balance); // Log balance for debugging
 
     return balance.value.uiAmount; // Return token balance
   } catch (error) {

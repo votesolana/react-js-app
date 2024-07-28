@@ -2,6 +2,7 @@
   position: relative;
   display: inline-block;
   text-align: center;
+  transition: opacity 0.3s ease, border-width 0.3s ease;
 }
 
 .image-overlay {
@@ -26,8 +27,9 @@
 
 
 .podium-image {
-  width: 36%;
+
   max-width: 220px; /* Adjust size as needed */
+  width: 36%;
 }
 
 .president-info {
@@ -37,18 +39,35 @@
 .president-title {
   font-weight: bold;
   font-size: 20px; /* Adjust font size */
+  color: white;
+  text-shadow:
+  1px 1px 0 black, /* Horizontal and vertical shadow offset, color */
+  -1px -1px 0 black, /* Shadow offsets in the opposite direction */
+  1px -1px 0 black, /* Other shadow offsets */
+  -1px 1px 0 black; /* Final shadow offset */
 }
 
-.total-votes {
-  font-size: 18px;
-  color: black;
-  position: relative;
-  top:15px;
+.global-total-votes {
+  color:white;
+  text-shadow:
+  1px 1px 0 black, /* Horizontal and vertical shadow offset, color */
+  -1px -1px 0 black, /* Shadow offsets in the opposite direction */
+  1px -1px 0 black, /* Other shadow offsets */
+  -1px 1px 0 black; /* Final shadow offset */
 
 }
 
-.president-display.lower-opacity {
-  opacity: 0.5; /* Adjust the opacity value as needed */
+.president-display.selected {
+  border: 2px solid #000000; /* Border for selected item */
+  border-radius: 20px; /* Optional: Rounded corners */
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); /* Optional: Shadow for selected item */
+  opacity: 1; /* Full opacity for selected item */
+}
+
+
+
+.president-display:not(.selected) {
+  opacity: 0.7; /* Reduced opacity for non-selected items */
 }
 
 .explosion-gif {
