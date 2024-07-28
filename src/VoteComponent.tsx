@@ -283,7 +283,7 @@ const VoteComponent = ({ candidate, setCandidate, timeLength, setTimeLength }) =
       <div className="vote-container">
         <h2>Your Votes Are Sealed</h2>
         <p>Vote Amount: {formatNumberWithCommas(voteInfoData.vote_amount)}</p>
-        <p>Voted for: {voteInfoData.wif_tremp ? 'Denald Tremp' : 'Kamala Harris'}</p>
+        <p>Voted for: {voteInfoData.wif_tremp ? 'Doland Tremp' : 'Kamala Horriss'}</p>
         {countdown > 0 ? (
           <div className="clock-countdown">
             <p>Time Left: {formatTime(countdown)}</p>
@@ -333,8 +333,8 @@ const VoteComponent = ({ candidate, setCandidate, timeLength, setTimeLength }) =
 
       <FormControl component="fieldset" className="form-control">
         <RadioGroup value={candidate} onChange={(e) => setCandidate(e.target.value)} className="radio-group">
-          <FormControlLabel value="boden" control={<Radio />} label="Kamala Harris" />
-          <FormControlLabel value="tremp" control={<Radio />} label="Denald Tremp" />
+          <FormControlLabel value="boden" control={<Radio />} label="Kamala Horriss" />
+          <FormControlLabel value="tremp" control={<Radio />} label="Doland Tremp" />
         </RadioGroup>
       </FormControl>
 

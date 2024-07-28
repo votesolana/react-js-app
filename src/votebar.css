@@ -13,7 +13,7 @@
 
 .winning-message {
   position: absolute;
-  top: -40px; /* Adjust as needed to position above the vote bars */
+  top: -42px; /* Adjust as needed to position above the vote bars */
   left: 0;
   right: 0;
   font-size: 16px; /* Adjust font size as needed */
