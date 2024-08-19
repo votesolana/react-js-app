@@ -4,6 +4,61 @@
   text-align: center;
   transition: opacity 0.3s ease, border-width 0.3s ease;
 }
+/* General Styles for horizontal-layout-president */
+.horizontal-layout-president {
+  background-image: url('/stage.png');
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 70px;
+  margin-bottom: 30px;
+  background-size: contain; /* Makes the image fit within the element without cropping */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+  background-position: center 25px;
+  /* Centering styles */
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+
+}
+
+/* Adjustments for screens larger than 992px */
+@media (min-width: 992px) {
+  .horizontal-layout-president {
+    max-width: calc(100vw - 36%); /* Adjust max-width to account for sidebars */
+    transform: scale(calc((100vw - 26%) / 800)); /* Adjust scaling to fit within sidebars */
+    margin-bottom: 75px;
+  }
+}
+
+/* Adjustments for screens smaller than 992px */
+@media (max-width: 992px) {
+  .horizontal-layout-president {
+    width: 100%; /* Ensure full width */
+    transform: none; /* Remove scaling to ensure it takes full width */
+  }
+}
+
+
+
+
+/* Adjustments for screens larger than 1600px */
+@media (min-width: 1500px) {
+  .horizontal-layout-president {
+    scale: 118%; /* Limit width to account for sidebars */
+  }
+}
+
+@media (min-width: 1900px) {
+  .horizontal-layout-president {
+    scale: 133%; /* Limit width to account for sidebars */
+  }
+}
+
+
+
 
 .image-overlay {
   position: relative;
@@ -67,7 +122,7 @@
 
 
 .president-display:not(.selected) {
-  opacity: 0.7; /* Reduced opacity for non-selected items */
+  opacity: 0.85; /* Reduced opacity for non-selected items */
 }
 
 .explosion-gif {

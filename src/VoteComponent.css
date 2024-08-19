@@ -1,93 +1,178 @@
-/* VoteComponent.css */
+/* Updated CSS */
 
+/* Background and general styles */
 .vote-container {
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background-color: #E0F2FF;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  background-image: url('/votebg.png');
+  border: 2px solid #000000; /* Border for selected item */
+  border-radius: 20px; /* Optional: Rounded corners */
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); /* Optional: Shadow for selected item */
+  opacity: 1; /* Full opacity for selected item */
+  background-size: cover; /* This stretches the image to cover the entire width of the screen */
+  background-position: center;
   max-width: 600px;
   margin: auto;
   text-align: center;
   width: 90%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: white;
+}
+
+/* Hover effect */
+.vote-container:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
 }
 
 .form-control {
+  display: flex;
+  justify-content: center; /* Centers the content horizontally */
+  align-items: center; /* Centers the content vertically if needed */
   margin-bottom: 20px;
-  text-align: center;
+
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column; /* Stack radio buttons vertically */
+  align-items: center; /* Center radio buttons horizontally */
+}
+
+.MuiFormControlLabel-root {
+
+  margin-bottom: 10px; /* Space between radio button options */
+  font-weight: 800;
+}
+
+
+/* Style the slider thumb */
+.MuiSlider-thumb {
+  background-color: white; /* Color of the thumb */
+  border: 2px solid #fff; /* Optional: add a border around the thumb */
 }
 
 
 
+.MuiRadio-root {
+  transform: scale(1.2); /* Make radio buttons slightly larger */
+}
+
+
+
+/* Slider container */
 .slider-container {
   margin-bottom: 20px;
 }
 
+/* Slider label */
 .slider-label {
-  font-size: 1rem;
-  color: #333;
+  font-size: 1.1rem;
+  color: #FFD700; /* Gold color for label */
+  font-weight: 600;
 }
 
+/* Button container */
 .button-container {
   margin-top: 20px;
-}
-
-.MuiFormControl-root {
-  width: 100%;/* Ensure space below */
-  text-align: center;
-}
-
-.MuiSelect-root {
-  background-color: #f4f4f4;
-  border-radius: 4px;
-  padding: 12px 16px; /* Increase padding if needed */
-  margin-top: 8px; /* Space between label and select */
-}
-
-.MuiInputBase-input {
-  padding: 12px; /* Adjust padding if needed */
-}
-
-.MuiButton-root {
-  border-radius: 20px;
-  padding: 10px 20px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.MuiButton-root:hover {
-  background-color: #0056b3;
-  transform: translateY(-2px);
-}
-
-
-
-
-.token-info {
-  margin-bottom: 20px;
-}
-
-.button-container {
   display: flex;
   justify-content: center;
 }
 
+/* Select input */
+.MuiFormControl-root {
+  width: 100%;
+  text-align: center;
+}
+
+.MuiSelect-root {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin-top: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.MuiSelect-root:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+.MuiInputBase-input {
+  padding: 14px;
+}
+
+/* Buttons */
+.MuiButton-root {
+  border-radius: 25px;
+  padding: 12px 24px;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  background: linear-gradient(145deg, #0056b3, #003d79);
+  color: #fff;
+  border: none;
+}
+
+.MuiButton-root:hover {
+  background: linear-gradient(145deg, #003d79, #0056b3);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Token info */
+.token-info {
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  background: linear-gradient(145deg, #f9d923, #f8c02e); /* Gold gradient background */
+  color: #3d3d3d; /* Dark text color for contrast */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border: 2px solid #f8c02e; /* Gold border */
+  font-family: 'Roboto', sans-serif;
+}
+
+.token-info h2 {
+  font-size: 1.5rem;
+  color: #f1c40f; /* Bright gold color for headings */
+  margin-bottom: 10px;
+}
+
+.token-info p {
+  font-size: 1rem;
+  color: #333; /* Darker color for text */
+}
+
+/* Clock countdown */
 .clock-countdown {
-  font-size: 1.2rem;
-  font-weight: bold;
+  font-size: 1.4rem;
+  font-weight: 700;
   text-align: center;
   margin-top: 20px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
   background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  color: #333; /* Ensure color is applied */
 }
 
-.button-container button {
-  margin-top: 10px;
+/* Highlight amount */
+.highlight-amount {
+  font-size: 2rem;
+  color: #FFD700; /* Bright gold color */
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
+/* Reward amount */
+.reward-amount {
+  font-size: 2rem;
+  color: #4CAF50; /* Green color for rewards */
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive adjustments */
 @media (max-width: 768px) {
   .vote-container {
-    padding: 10px;
+    padding: 15px;
   }
 }

@@ -86,7 +86,7 @@ const VoteComponent = ({ candidate, setCandidate, timeLength, setTimeLength }) =
         setTreasuryAccount(treasury);
 
         let userTrempToken = await getTrempTokenAddress(publicKey).then(tokenAddress => {
- 
+
           return tokenAddress;
         })
           .catch(error => {
@@ -114,6 +114,10 @@ const VoteComponent = ({ candidate, setCandidate, timeLength, setTimeLength }) =
 
         const balance = await getTokenBalance(publicKey);
         setTokenBalance(balance);
+        if(amount == 5000) {
+          setAmount(Math.floor(balance/2));
+        }
+   
         setIsLoading(false);
         setDataFetched(true);
       } catch (error) {
@@ -126,6 +130,8 @@ const VoteComponent = ({ candidate, setCandidate, timeLength, setTimeLength }) =
           setIsLoading(false);
         }
       }
+
+      
     };
     fetchData();
     const interval = setInterval(() => {
@@ -264,7 +270,7 @@ const VoteComponent = ({ candidate, setCandidate, timeLength, setTimeLength }) =
     return <p>Error: {error.message}</p>;
   }
 
-  
+
 
   if (tokenBalance < 5000 && (!voteInfoData || !voteInfoData.is_voted)) {
 
@@ -302,67 +308,97 @@ const VoteComponent = ({ candidate, setCandidate, timeLength, setTimeLength }) =
 
   return (
     <div className="vote-container">
-      <h3>Place Your Vote:</h3>
-       <div className="form-wrapper">
-      <FormControl fullWidth margin="normal" className="form-control">
-        <InputLabel id="time-length-label">Time Length</InputLabel>
-        <Select
-          labelId="time-length-label"
-          value={timeLength}
-          onChange={(e) => setTimeLength(e.target.value)}
-        >
-          <MenuItem value="1 day">1 day</MenuItem>
-          <MenuItem value="1 week">1 week</MenuItem>
-          <MenuItem value="1 month">1 month</MenuItem>
-          <MenuItem value="election day">Election Day</MenuItem>
-        </Select>
-      </FormControl>
 
-      <div className="slider-container">
-        <InputLabel className="slider-label">Amount: {formatNumberWithCommas(amount)}</InputLabel>
-        <Slider
-          value={amount}
-          min={5000}
-          max={tokenBalance}
-          step={100}
-          onChange={handleAmountChange}
-          valueLabelDisplay="auto"
-          valueLabelFormat={formatNumberWithCommas}
-        />
-      </div>
+      <div className="form-wrapper">
 
-      <FormControl component="fieldset" className="form-control">
-        <RadioGroup value={candidate} onChange={(e) => setCandidate(e.target.value)} className="radio-group">
-          <FormControlLabel value="boden" control={<Radio />} label="Kamala Horris" />
-          <FormControlLabel value="tremp" control={<Radio />} label="Doland Tremp" />
-        </RadioGroup>
-      </FormControl>
 
-      <div className="token-info">
-        <p>Your Tokens: {formatNumberWithCommas(tokenBalance)}</p>
-        <p>Estimated Rewards: {calculateRewards} tokens</p>
-      </div>
-    
-      <FormControlLabel
-        control={
-              
-              
+        <div className="slider-container">
 
-          <Checkbox
-            checked={acknowledge}
-            onChange={(e) => setAcknowledge(e.target.checked)}
-            name="acknowledge"
-            color="primary"
+          <h1>Place Votes: <span className="highlight-amount">{formatNumberWithCommas(amount)}</span></h1>
+          <InputLabel className="slider-label" sx={{
+          '& .MuiSlider-root': { color: 'white' },
+            color: 'white',
+          }}>Balance: {formatNumberWithCommas(Math.floor(tokenBalance))}</InputLabel>
+          <Slider
+            value={amount}
+            min={5000}
+            max={tokenBalance}
+            step={100}
+            onChange={handleAmountChange}
+            valueLabelDisplay="auto"
+            valueLabelFormat={formatNumberWithCommas}
+            color="white"
           />
-        }
-        label="I acknowledge that I can only place one vote, and it will be locked until the time expires."
-      />
+        </div>
 
-      <div className="button-container">
-        <Button variant="contained" color="primary" onClick={handleSubmit} disabled={amount < 5000 || !acknowledge}>
-          Place Vote
-        </Button>
-      </div>
+        <FormControl fullWidth margin="normal" sx={{ color: 'white' }}>
+          <InputLabel id="time-length-label" sx={{ color: 'black' }}>Time Length</InputLabel>
+          <Select
+            labelId="time-length-label"
+            value={timeLength}
+            onChange={(e) => setTimeLength(e.target.value)}
+            sx={{
+              color: 'black',
+              fontSize: '120%',
+              '& .MuiSelect-icon': { color: 'black' }, // Ensures the select icon is also white
+              '& .MuiMenuItem-root': { color: 'black' },// Ensures menu items are white
+              backgroundColor: '#6C8EBF',
+              fontWeight: '700',
+              textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
+            }}
+          >
+            <MenuItem value="1 day">1 day</MenuItem>
+            <MenuItem value="1 week">1 week</MenuItem>
+            <MenuItem value="1 month">1 month</MenuItem>
+            <MenuItem value="election day">Election Day</MenuItem>
+          </Select>
+        </FormControl>
+
+
+        <FormControl component="fieldset" className="form-control">
+          <RadioGroup value={candidate} onChange={(e) => setCandidate(e.target.value)} className="radio-group">
+            <FormControlLabel value="boden" control={<Radio />} label="Kamala Horris" />
+            <FormControlLabel value="tremp" control={<Radio />} label="Doland Tremp" />
+          </RadioGroup>
+        </FormControl>
+
+        <div className="token-info">
+
+          <p>Rewards: <span className="reward-amount">{calculateRewards} tokens</span></p>
+        </div>
+
+        <FormControlLabel
+         sx={{
+          backgroundColor: 'red',
+        }}
+          control={
+
+
+
+            <Checkbox
+              checked={acknowledge}
+              onChange={(e) => setAcknowledge(e.target.checked)}
+              name="acknowledge"
+              color="primary"
+             
+            />
+          }
+          label="I acknowledge that I can only place one vote, and it will be locked until the time expires."
+        />
+
+<Button
+  variant="contained"
+  color="primary"
+  onClick={handleSubmit}
+  disabled={amount < 5000 || !acknowledge}
+  sx={{
+    fontSize: '1.25rem', // Increase font size
+    padding: '12px 24px', // Increase padding for a larger button
+    borderRadius: '8px' // Optional: round the corners
+  }}
+>
+  Place Vote
+</Button>
       </div>
     </div>
   );

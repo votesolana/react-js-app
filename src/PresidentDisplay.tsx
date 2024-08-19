@@ -10,9 +10,9 @@ const PresidentDisplay = ({ imageSrc, podiumImageSrc, isSelected, totalVotes, pr
 
   const getBackgroundColor = () => {
     if (presidentTitle === 'Kamala Horris') {
-      return '#454af5'; // Background color for Boden
+      return 'rgba(69, 74, 245, 0.85)'; // Background color for Boden
     } else if (presidentTitle === 'Doland Tremp') {
-      return '#ff3838'; // Background color for Tremp
+      return 'rgba(255, 56, 56, 0.85)'; // Background color for Tremp
     }
     return 'transparent'; // Default background color
   };

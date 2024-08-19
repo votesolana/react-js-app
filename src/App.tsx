@@ -107,13 +107,14 @@ const App = () => {
                     </div>
 
                     <div className="app-container">
+                        
                         <img src="/header.png" alt="Header" className="header-image" />
                         <div className="horizontal-layout">
                             <VoteBar timeLength={timeLength} candidate={candidate} trempAmount={tremp} bodenAmount={boden} />
                         </div>
 
-
-                        <div className="horizontal-layout">
+                
+                        <div className="horizontal-layout-president">
 
                             <PresidentDisplay imageSrc={bodenImage} isSelected={candidate === 'boden'} totalVotes={boden} presidentTitle={"Kamala Horris"} podiumImageSrc={"/podium1.png"} onClick={() => handleCandidateClick('boden')} />
                             <div className="vote-bar-percentage">{bodenPercentage}% / {trempPercentage}%</div>
