@@ -32,13 +32,15 @@ const App = () => {
 
     const wallets = useMemo(() => [new UnsafeBurnerWalletAdapter()], [network]);
 
-
+    const [showMainContent, setShowMainContent] = useState(false);
     const [candidate, setCandidate] = useState("tremp");
     const [timeLength, setTimeLength] = useState("1 day");
     const [voteData, setVoteData] = useState({ tremp: 0, boden: 0 });
     const [treasuryData, setTreasuryData] = useState(0)
 
     useEffect(() => {
+
+        
         const getVoteData = async () => {
             const data = await fetchGlobalAccountData();
             setVoteData(data);
@@ -65,7 +67,14 @@ const App = () => {
         };
     }, []);
 
+  // GIF handling effect - adjust the duration based on your GIF length
+  useEffect(() => {
+    const timer = setTimeout(() => {
+        setShowMainContent(true);
+    }, 6900); // Adjust this to the length of your GIF in milliseconds
 
+    return () => clearTimeout(timer);
+}, []);
 
     let { tremp, boden } = voteData;
     if (boden === 0) {
@@ -97,6 +106,15 @@ const App = () => {
     const handleCandidateClick = (newCandidate) => {
         setCandidate(newCandidate);
     };
+
+    if (!showMainContent) {
+        return (
+            <div className="gif-container">
+                <img src="/animatino.gif" alt="Intro GIF with donald trump and kamala harris facing off and telling you to choose wisely" />
+            </div>
+        );
+    }
+
 
     return (
         <ConnectionProvider endpoint={endpoint}>
