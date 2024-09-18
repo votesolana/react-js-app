@@ -4,61 +4,55 @@
 .vote-container {
   padding: 30px;
   border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  background-image: url('/votebg.png');
-  border: 2px solid #000000; /* Border for selected item */
-  border-radius: 20px; /* Optional: Rounded corners */
-  box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); /* Optional: Shadow for selected item */
-  opacity: 1; /* Full opacity for selected item */
-  background-size: cover; /* This stretches the image to cover the entire width of the screen */
+  background-color: #2C1A1A; /* Deep maroon for background */
+  border: 2px solid #8B0000; /* Dark red border */
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(218, 165, 32, 0.5); /* Golden glow shadow */
+  opacity: 1;
+  background-size: cover;
   background-position: center;
   max-width: 600px;
   margin: auto;
   text-align: center;
   width: 90%;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  color: white;
+  color: #E0E0E0; /* Light gray text */
 }
 
 /* Hover effect */
 .vote-container:hover {
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 12px 24px rgba(255, 223, 0, 0.2); /* Subtle yellow hover shadow */
 }
 
 .form-control {
   display: flex;
-  justify-content: center; /* Centers the content horizontally */
-  align-items: center; /* Centers the content vertically if needed */
+  justify-content: center;
+  align-items: center;
   margin-bottom: 20px;
-
 }
 
 .radio-group {
   display: flex;
-  flex-direction: column; /* Stack radio buttons vertically */
-  align-items: center; /* Center radio buttons horizontally */
+  flex-direction: column;
+  align-items: center;
 }
 
 .MuiFormControlLabel-root {
-
-  margin-bottom: 10px; /* Space between radio button options */
+  margin-bottom: 10px;
   font-weight: 800;
+  color: #ffffff; /* Bright gold for radio labels */
 }
-
 
 /* Style the slider thumb */
 .MuiSlider-thumb {
-  background-color: white; /* Color of the thumb */
-  border: 2px solid #fff; /* Optional: add a border around the thumb */
+  background-color: #FFF; /* White thumb */
+  border: 2px solid #FFD700; /* Gold border */
 }
-
-
 
 .MuiRadio-root {
-  transform: scale(1.2); /* Make radio buttons slightly larger */
+  transform: scale(1.2);
+  color: #FFD700; /* Gold radio buttons */
 }
-
-
 
 /* Slider container */
 .slider-container {
@@ -68,7 +62,7 @@
 /* Slider label */
 .slider-label {
   font-size: 1.1rem;
-  color: #FFD700; /* Gold color for label */
+  color: #DAA520; /* Softer golden hue */
   font-weight: 600;
 }
 
@@ -107,13 +101,13 @@
   border-radius: 25px;
   padding: 12px 24px;
   transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-  background: linear-gradient(145deg, #0056b3, #003d79);
+  background: linear-gradient(145deg, #003d79, #0056b3);
   color: #fff;
   border: none;
 }
 
 .MuiButton-root:hover {
-  background: linear-gradient(145deg, #003d79, #0056b3);
+  background: linear-gradient(145deg, #0056b3, #003d79);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
@@ -122,16 +116,16 @@
   margin-bottom: 20px;
   padding: 20px;
   border-radius: 10px;
-  background: linear-gradient(145deg, #f9d923, #f8c02e); /* Gold gradient background */
-  color: #3d3d3d; /* Dark text color for contrast */
+  background: linear-gradient(145deg, #DAA520, #FFD700); /* Softer gold gradient */
+  color: #3d3d3d; /* Dark text for contrast */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  border: 2px solid #f8c02e; /* Gold border */
+  border: 2px solid #FFD700; /* Gold border */
   font-family: 'Roboto', sans-serif;
 }
 
 .token-info h2 {
   font-size: 1.5rem;
-  color: #f1c40f; /* Bright gold color for headings */
+  color: #DAA520; /* Softer gold for headings */
   margin-bottom: 10px;
 }
 
@@ -151,13 +145,13 @@
   border-radius: 10px;
   background-color: #fff;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  color: #333; /* Ensure color is applied */
+  color: #333;
 }
 
 /* Highlight amount */
 .highlight-amount {
   font-size: 2rem;
-  color: #FFD700; /* Bright gold color */
+  color: #FFD700; /* Bright gold */
   font-weight: 700;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
@@ -165,10 +159,13 @@
 /* Reward amount */
 .reward-amount {
   font-size: 2rem;
-  color: #4CAF50; /* Green color for rewards */
+  color: #32CD32; /* Lime green for rewards */
   font-weight: 700;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Existing shadow */
+  -webkit-text-stroke: 0.5px black; /* Black outline */
+
 }
+
 
 /* Responsive adjustments */
 @media (max-width: 768px) {

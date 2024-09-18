@@ -36,11 +36,10 @@ const App = () => {
     const [candidate, setCandidate] = useState("tremp");
     const [timeLength, setTimeLength] = useState("1 day");
     const [voteData, setVoteData] = useState({ tremp: 0, boden: 0 });
-    const [treasuryData, setTreasuryData] = useState(0)
+    const [treasuryData, setTreasuryData] = useState(0);
 
     useEffect(() => {
 
-        
         const getVoteData = async () => {
             const data = await fetchGlobalAccountData();
             setVoteData(data);
@@ -67,14 +66,29 @@ const App = () => {
         };
     }, []);
 
-  // GIF handling effect - adjust the duration based on your GIF length
-  useEffect(() => {
-    const timer = setTimeout(() => {
-        setShowMainContent(true);
-    }, 6900); // Adjust this to the length of your GIF in milliseconds
+    // GIF handling effect - adjust the duration based on your GIF length
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setShowMainContent(true);
+        }, 8400); // Adjust this to the length of your GIF in milliseconds
 
-    return () => clearTimeout(timer);
-}, []);
+        // Add event listener for user click/tap to skip
+        const skipAnimation = () => {
+            clearTimeout(timer); // Cancel the timer
+            setShowMainContent(true); // Show main content immediately
+        };
+
+        // Add event listeners to skip animation on click or tap
+        window.addEventListener('click', skipAnimation);
+        window.addEventListener('touchstart', skipAnimation);
+
+        // Clean up listeners on component unmount
+        return () => {
+            clearTimeout(timer);
+            window.removeEventListener('click', skipAnimation);
+            window.removeEventListener('touchstart', skipAnimation);
+        };
+    }, []);
 
     let { tremp, boden } = voteData;
     if (boden === 0) {
@@ -162,7 +176,7 @@ const App = () => {
 
                             </div>
                         </a>
-                        <h1 className="ca">CA: 7xyVxmGWot6kWD3Su7g717UU4JiBWxsKGfzNtn</h1>
+                        <h1 className="ca">CA: 7xyVxmGWot6kWD3Su7g717UU4JiBWxsKGfzNtn61vbcV</h1>
         <div className="dextools-widget-container">
 
                       
@@ -172,9 +186,13 @@ const App = () => {
                             title="DEXTools Trading Chart"
                             width="500"
                             height="400"
-                            src="https://www.dextools.io/widget-chart/en/solana/pe-light/4bVgF1rVkSQtFqe16Km9szeKdhuspuq8PFqqbn2mktG9?theme=light&chartType=2&chartResolution=30&drawingToolbars=false"
+                            src="https://www.dextools.io/widget-chart/en/solana/pe-light/4bVgF1rVkSQtFqe16Km9szeKdhuspuq8PFqqbn2mktG9?theme=light&chartType=lines&pairTitle=Vote&chartSize=medium&indicators=1&counterCurrency=USDT"
+                            allowTransparency="true"
+                            frameBorder="0"
+                            scrolling="no"
                         ></iframe>
                         </div>
+
                         <div className="disclaimer">
                             <p>This is a fictional crypto project created for entertainment purposes only. We are not responsible for any real-world implications. If for any circumstances a candidate changes your vote will remain in the according pool.</p>
                         </div>
